@@ -68,7 +68,7 @@ spec:
               value: "0.0.0.0:80"
 
             - name: CODER_ACCESS_URL
-              value: "https://dev.ocf.berkeley.edu"
+              value: "https://code.ocf.berkeley.edu"
 
             - name: CODER_PG_CONNECTION_URL
               valueFrom:
@@ -120,7 +120,7 @@ metadata:
   name: virtual-host-ingress
 spec:
   rules:
-    - host: dev.ocf.berkeley.edu
+    - host: code.ocf.berkeley.edu
       http:
         paths:
           - backend:
