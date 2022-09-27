@@ -107,3 +107,9 @@ spec:
           - backend:
               serviceName: coder-service
               servicePort: 80
+    - host: '*.code.ocf.berkeley.edu'
+      http:
+        paths:
+          - backend:
+              serviceName: coder-service
+              servicePort: 80
