@@ -64,8 +64,12 @@ resource "coder_agent" "main" {
     fi
 
     # install and start code-server
-    curl -fsSL https://code-server.dev/install.sh | sh  | tee code-server-install.log
+    curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
     code-server --auth none --port 13337 | tee code-server-install.log &
+
+    # clone ocfstatic
+    git clone https://github.com/ocf/ocfstatic --branch gatsby-dev $HOME/ocfstatic
+    (cd $HOME/ocfstatic && yarn)
   EOT
 }
 
@@ -74,7 +78,7 @@ resource "coder_app" "code-server" {
   agent_id      = coder_agent.main.id
   name          = "code-server"
   icon          = "/icon/code.svg"
-  url           = "http://localhost:13337?folder=/home/coder"
+  url           = "http://localhost:13337?folder=/home/coder/ocfstatic"
   relative_path = true
 }
 
@@ -107,7 +111,7 @@ resource "kubernetes_pod" "main" {
     }
     container {
       name    = "dev"
-      image   = "codercom/enterprise-base:ubuntu"
+      image   = "docker.ocf.berkeley.edu/coder/ocfstatic:latest"
       command = ["sh", "-c", coder_agent.main.init_script]
       security_context {
         run_as_user = "1000"
