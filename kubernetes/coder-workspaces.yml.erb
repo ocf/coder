@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: coder-workspace-perms
+  namespace: app-coder-workspaces
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["*"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: coder
+  namespace: app-coder-workspaces
+subjects:
+  - kind: ServiceAccount
+    name: coder
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: coder-workspace-perms
