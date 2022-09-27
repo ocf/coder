@@ -89,6 +89,8 @@ spec:
               path: /api/v2/buildinfo
               port: http
               scheme: HTTP
+      nodeSelector:
+        kubernetes.io/hostname: riptide
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
