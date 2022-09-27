@@ -46,6 +46,9 @@ spec:
             - name: CODER_ACCESS_URL
               value: "https://code.ocf.berkeley.edu"
 
+            - name: CODER_WILDCARD_ACCESS_URL
+              value: "*.code.ocf.berkeley.edu"
+
             - name: CODER_PG_CONNECTION_URL
               valueFrom:
                 secretKeyRef:
