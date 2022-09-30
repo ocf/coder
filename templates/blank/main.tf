@@ -90,6 +90,7 @@ resource "kubernetes_persistent_volume_claim" "home" {
         storage = "${var.home_disk_size}Gi"
       }
     }
+    storage_class_name = "managed-nfs-storage"
   }
 }
 
