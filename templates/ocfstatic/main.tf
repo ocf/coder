@@ -67,8 +67,8 @@ resource "coder_agent" "main" {
     curl -fsSL https://code-server.dev/install.sh | sh | tee code-server-install.log
     code-server --auth none --port 13337 | tee code-server-install.log &
 
-    # clone ocfstatic
-    git clone https://github.com/ocf/ocfstatic --branch gatsby-dev $HOME/ocfstatic
+    # update ocfstatic
+    (cd $HOME/ocfstatic && git fetch && git pull --ff-only)
     (cd $HOME/ocfstatic && yarn)
   EOT
 }
