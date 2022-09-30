@@ -11,20 +11,6 @@ terraform {
   }
 }
 
-variable "use_kubeconfig" {
-  type        = bool
-  sensitive   = true
-  description = <<-EOF
-  Use host kubeconfig? (true/false)
-
-  Set this to false if the Coder host is itself running as a Pod on the same
-  Kubernetes cluster as you are deploying workspaces to.
-
-  Set this to true if the Coder host is running outside the Kubernetes cluster
-  for workspaces.  A valid "~/.kube/config" must be present on the Coder host.
-  EOF
-}
-
 variable "namespace" {
   type        = string
   sensitive   = true
@@ -32,19 +18,8 @@ variable "namespace" {
   default     = "app-coder-workspaces"
 }
 
-variable "home_disk_size" {
-  type        = number
-  description = "How large would you like your home volume to be (in GB)?"
-  default     = 1
-  validation {
-    condition     = var.home_disk_size >= 1
-    error_message = "Value must be greater than or equal to 1."
-  }
-}
-
 provider "kubernetes" {
-  # Authenticate via ~/.kube/config or a Coder-specific ServiceAccount, depending on admin preferences
-  config_path = var.use_kubeconfig == true ? "~/.kube/config" : null
+  config_path = null
 }
 
 data "coder_workspace" "me" {}
@@ -91,7 +66,7 @@ resource "kubernetes_persistent_volume_claim" "home" {
     access_modes = ["ReadWriteOnce"]
     resources {
       requests = {
-        storage = "${var.home_disk_size}Gi"
+        storage = "2Gi"
       }
     }
     storage_class_name = "managed-nfs-storage"
