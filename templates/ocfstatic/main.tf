@@ -100,6 +100,18 @@ resource "kubernetes_pod" "main" {
         name       = "home"
         read_only  = false
       }
+      resources {
+        requests = {
+          cpu = "1"
+          memory = "1Gi"
+          ephemeral-storage = "500Mi"
+        }
+        limits = {
+          cpu = "2"
+          memory = "2Gi"
+          ephemeral-storage = "1Gi"
+        }
+      }
     }
 
     volume {
