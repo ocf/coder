@@ -25,6 +25,3 @@ RUN yarn set version stable
 
 # Set back to coder user
 USER coder
-
-RUN git clone https://github.com/ocf/ocfstatic --branch gatsby-dev $HOME/ocfstatic
-RUN cd $HOME/ocfstatic && yarn
