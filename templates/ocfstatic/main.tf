@@ -43,7 +43,7 @@ resource "coder_agent" "main" {
     code-server --auth none --port 13337 | tee code-server-install.log &
 
     # clone ocfstatic
-    git clone https://github.com/ocf/ocfstatic --branch gatsby-dev $HOME/ocfstatic
+    git clone git@github.com:ocf/ocfstatic.git --branch gatsby-dev $HOME/ocfstatic
 
     # update ocfstatic
     (cd $HOME/ocfstatic && git fetch && git pull --ff-only)
