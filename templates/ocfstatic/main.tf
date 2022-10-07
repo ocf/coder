@@ -43,7 +43,9 @@ resource "coder_agent" "main" {
     code-server --auth none --port 13337 | tee code-server-install.log &
 
     # clone ocfstatic
-    git clone git@github.com:ocf/ocfstatic.git --branch gatsby-dev $HOME/ocfstatic
+    git clone https://github.com/ocf/ocfstatic.git --branch gatsby-dev $HOME/ocfstatic
+    # this is a nasty hack since ssh prompts to trust host on first connect and this script runs noninteractively
+    (cd $HOME/ocfstatic && git remote set-url origin "git@github.com:ocf/ocfstatic.git")
 
     # update ocfstatic
     (cd $HOME/ocfstatic && git fetch && git pull --ff-only)
@@ -105,13 +107,13 @@ resource "kubernetes_pod" "main" {
       }
       resources {
         requests = {
-          cpu = "2"
-          memory = "2Gi"
+          cpu = "4"
+          memory = "4Gi"
           ephemeral-storage = "500Mi"
         }
         limits = {
-          cpu = "4"
-          memory = "4Gi"
+          cpu = "8"
+          memory = "6Gi"
           ephemeral-storage = "1Gi"
         }
       }
