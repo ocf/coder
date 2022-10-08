@@ -24,3 +24,12 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: coder-workspace-perms
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: coder-workspace-priority
+  namespace: app-coder-workspaces
+value: 100
+globalDefault: false
+description: "This priority class is to prevent Coder workspace pods from being evicted."

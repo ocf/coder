@@ -118,6 +118,7 @@ resource "kubernetes_pod" "main" {
         }
       }
     }
+    priority_class_name = "coder-workspace-priority"
 
     volume {
       name = "home"
