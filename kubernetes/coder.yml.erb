@@ -78,6 +78,9 @@ spec:
                 secretKeyRef:
                   name: coder-config
                   key: CODER_OIDC_CLIENT_SECRET
+
+            - name: CODER_TELEMETRY
+              value: "false"
           ports:
             - name: http
               containerPort: 80
