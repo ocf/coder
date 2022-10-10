@@ -108,12 +108,12 @@ resource "kubernetes_pod" "main" {
       resources {
         requests = {
           cpu = "4"
-          memory = "4Gi"
+          memory = "6Gi"
           ephemeral-storage = "500Mi"
         }
         limits = {
           cpu = "8"
-          memory = "6Gi"
+          memory = "8Gi"
           ephemeral-storage = "1Gi"
         }
       }
